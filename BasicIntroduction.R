@@ -40,6 +40,8 @@ sin(pi / 2)
 # var assignment
 x <- 3 * 4
 x = 3 * 4
+# enclosing bracket will print to console
+(x = 3 * 4)
 
 # display var
 x
@@ -51,6 +53,11 @@ seq(1, 10)
 # enclose in parentheses to display automatically after assignment
 (y <- seq(1, 10, length.out = 5))
 
+# enclose in parentheses to display automatically after assignment
+(z <- seq(5, 15, length.out = 10))
+
+
+# ? is the syntax for help
 ?seq()
 ?sd()
 
@@ -59,6 +66,8 @@ seq(1, 10)
 library(nycflights13)
 library(tidyverse)
 
+# ?<library name>::<function name> to see help for the library's function
+# needs the double colons
 ?dplyr::filter() 
 ?stats::filter()
 
