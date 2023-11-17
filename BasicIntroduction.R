@@ -83,6 +83,7 @@ flights # data type is a tibble ---more on this later
 # view flights and Iris dataset in RStudio Viewer
 View(flights)
 View(iris)
+view(y)
 
 # R var types
 #  int stands for integers.
@@ -99,17 +100,31 @@ View(iris)
 # https://statsandr.com/blog/data-types-in-r/
 # c is used in R to concatenate 
 num_data <- c(3, 7, 2)# numeric series without decimals
+num_data_int <- as.integer(num_data)
 # Combine Values Into A Vector Or List
 # Try run it....https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/c
 
-
 class(num_data) # identifies class of data
-
 typeof(num_data) # to get data type
+
+class(num_data_int) # identifies class of data after cast in integer
+typeof(num_data_int) # to get data type after cast in integer
+
+# to hardcode integers
+hardcode_int_data = c(3L, 6L, 7L)
+typeof(hardcode_int_data) 
+
+# of string data
+string_data = c("apple", "orange", "banana", 4L)
+class(string_data) # identifies class of data after cast in integer
+typeof(string_data) # to get data type after cast in integer
+(string_data)
+
 
 num_data_dec <- c(3.4, 7.1, 2.9)
 class(num_data_dec)
 # also possible to check the class thanks to str()
+# shows the structure of the data
 str(num_data_dec)
 
 int_nums = as.integer(num_data_dec)# convert data types
@@ -127,13 +142,13 @@ numAsChar= as.character(int_nums)
 char_space <- "text "
 char_nospace <- "text"
 # is char_space equal to char_nospace?
-char_space == char_nospace
+char_space == char_nospace # not equal
 
 
 char_space <- "Text"
 char_nospace <- "text"
 # is char_space equal to char_nospace?
-char_space == char_nospace
+char_space == char_nospace # not equal
 
 
 ##############################################
@@ -165,22 +180,34 @@ value2 <- 9
 
 # is value1 greater than value2?
 (greater <- value1 > value2)
-
+(less <- value1 < value2)
 class(greater)
-
+class(less)
 # is value1 less than or equal to value2?
 less <- value1 <= value2
 less
 
-
-greater_num <- as.numeric(greater)# FALSE values equal to 0 and TRUE values equal to 1:
-greater_num
-
+# FALSE values equal to 0 and TRUE values equal to 1:
+greater_num <- as.numeric(greater)
+greater_num  # Value of 0 because it is False
+less_num <- as.numeric(less)
+less_num # Value of 1 because it is true
 # also we can take an int and get a logical
 x <- 0
 typeof(x)
-as.logical(x)
+as.logical(x) # false
 
+a <- 1
+typeof(a)
+as.logical(a) # true
+
+b <- 3
+typeof(b)
+as.logical(b) # true
+
+c <- -3
+typeof(c)
+as.logical(c) # true
 
 ############################################
 # apply(), lapply(), sapply(), tapply()
