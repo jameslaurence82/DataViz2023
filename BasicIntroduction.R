@@ -209,6 +209,68 @@ c <- -3
 typeof(c)
 as.logical(c) # true
 
+d <- -0
+typeof(d)
+as.logical(d) # false
+
+################
+# VECTORS
+################
+x<- c(1,2,3,10,5)
+2 * x
+typeof(x)
+length(x)
+class(x)
+str(x)
+x[0] # R indexes do not start at 0, they start at 1
+# this gives the value is numeric(0)
+x[1] # This is the first index of the vector
+x[4] # this 
+
+x1<- c(1L,2L,3L,10L,5L)
+2 * x
+typeof(x1)
+length(x1)
+class(x1)
+str(x1)
+
+(z <- c(x,4)) # adds the x vector to z variable with the number 4
+
+# Vectors can only be one type
+xx <- c(1.7, "a") # if string value, all values will be string
+xx <- c(19, TRUE, FALSE) # True/False will become bit integer values
+xx
+
+yy <- c(1.0, 1.4,3) # the integer becomes a float data type
+yy
+
+#########
+# LISTS
+#########
+# Create lists using llist or coerce other objects using as.list()
+
+(x <- list(1, "a", TRUE, 1+4i)) # Creates 4 lists with one entry in each
+
+x[3][1] # [array #, index #] == [1] TRUE
+x <- 1:10
+(x <- as.list(x))
+length(x)
+
+temp <- list(list(list(list())))
+temp(is.recursive(temp))
+
+#list vs vector
+(av= vector(1,2,TRUE))
+(al=list(1,2,TRUE))
+#We can use unlist() to convert the list into a vector.
+(alf=list("apples","pears","strawberry"))
+
+# check if it is a vector
+is.atomic(alf)
+
+# check if it is a list
+is.list(al)
+
 ############################################
 # apply(), lapply(), sapply(), tapply()
 # https://www.guru99.com/r-apply-sapply-tapply.html
@@ -222,13 +284,178 @@ as.logical(c) # true
 #  -MARGIN=c(1,2)` the manipulation is performed on rows and columns
 #  -FUN: tells which function to apply. Built functions like mean, median, sum, min, max and even user-defined functions can be applied>
 
+(m <- matrix(nrow = 2, ncol = 2))
+dim(m)
+# same as
+attributes(m)
+
+# Matrices are constructed columnwise
+(m <- matrix(1:6, nrow=2, ncol =3))
+m1 <- 1:10 #takes a vector
+m1 # print the vector
+
+dim(m1) <- c(2,5) # concatenate the dimensions
+# can only create enough element spaces based on the vectors provided
+m1 # print the new dimensional matrix
+
+m2 <- matrix(C<-(1:10),nrow=2, ncol=2)
+dim(m2)
+## SAME AS
+attributes(m2)
+
+a_m1 <- apply(m1, 2, sum)
+a_m1
+# combining rows and/or cols
+x <- 1:3 # vector with 3 numbers
+y <- 10:12 # vector with 3 numbers
+x
+y
+cbind(x,y) # column bind them together
+# or
+rbind(x,y) # row bind them together
+
+##############################################
+#  DataFrames
+#  A data frame is a very important data type in R. It's pretty much the de facto data structure for most tabular data and what we use for statistics.
+#  data frames can have additional attributes such as rownames().
+##############################################
+# Data frames Usually created by read.csv and read.table.
+# Create with data.frame() function.
+# Convert to matrix with data.matrix()
+
+(df = data.frame(id = letters[1:10], x = 1:10, y = rnorm(10)))
+# rnorm -> z score standard deviation values randomly assigned
+
+# id  x           y
+# 1   a  1  0.45559580
+# 2   b  2  1.52023025
+# 3   c  3  0.08914295
+# 4   d  4 -1.14923368
+# 5   e  5 -1.44883928
+# 6   f  6 -1.52872295
+# 7   g  7  0.41131155
+# 8   h  8  1.36385494
+# 9   i  9  0.29850020
+# 10  j 10 -1.78673009
+
+# naming cols
+x <- 1:3
+names(x) <- c("rich", "daniel", "diego")
+x
+# using names() will name the columns which can then can be called
+x <- as.list(1:10) # creates list 1 to 10
+names(x) <- letters[seq(x)] # assigning letter sequence to list x
+x
+
+n <- matrix(1:10, nrow = 2)
+n
+# [,1] [,2] [,3] [,4] [,5]
+# [1,]    1    3    5    7    9
+# [2,]    2    4    6    8   10
+n1 <- matrix(1:10)
+n1
+#       [,1]
+# [1,]    1
+# [2,]    2
+# [3,]    3
+# [4,]    4
+# [5,]    5
+# [6,]    6
+# [7,]    7
+# [8,]    8
+# [9,]    9
+# [10,]   10
+n2 <- matrix(1:10, ncol = 2)
+n2
+# [,1] [,2]
+# [1,]    1    6
+# [2,]    2    7
+# [3,]    3    8
+# [4,]    4    9
+# [5,]    5   10
+
+m <- matrix(1:4, nrow = 2)
+dimnames(m) <- list(c("a", "b"), c("c", "d")) # c(x rows),c(y columns)
+m
+#   c d
+# a 1 3
+# b 2 4
+# first element = rownames
+# second element = colnames
+
+############################################
+# Missing values
+# denoted by NA and/or NaN for undefined mathematical operations.
+############################################
+
+# missing values are represented by the symbol NA (not available). Impossible values (e.g., dividing by zero) are represented by the symbol NaN (not a number)
+
+# is.na()
+# is.nan()
+# always check both
+
+x <- c(1,2, NA, 4, 5)
+is.na(x) #returns logical. shows third
+# [1] FALSE FALSE  TRUE FALSE FALSE
+
+is.nan(x) # none are NaN.
+# [1] FALSE FALSE FALSE FALSE FALSE
+
+x <- c(1,2, NA, NaN, 4, 5)
+is.nan(x) 
+# [1] FALSE FALSE FALSE  TRUE FALSE FALSE
+
+is.na(x)
+# [1] FALSE FALSE  TRUE  TRUE FALSE FALSE
+
+############################################
+# Helpful Fns
+############################################
+# str() Compactly display the internal structure of an R object. Perhaps the most uesful diagnostic function in R.
+# names() Names of elements within an object
+# class() Retrieves the internal class of an object
+# length() Retrieve or set the dimension of an object.
+# dim() Retrieve or set the dimension of an object.
+
+
+############################################
+# apply(), lapply(), sapply(), tapply()
+# https://www.guru99.com/r-apply-sapply-tapply.html
+
+# apply for functions
+# apply(X, MARGIN, FUN)
+# Here:
+#  -x: an array or matrix
+#  -MARGIN:  take a value or range between 1 and 2 to define where to apply the function:
+#  -MARGIN=1`: the manipulation is performed on rows
+#  -MARGIN=2`: the manipulation is performed on columns
+#  -MARGIN=c(1,2)` the manipulation is performed on rows and columns
+#  -FUN: tells which function to apply. Built functions like mean, median, sum, min, max and even user-defined functions can be applied>
+
 m1 <- matrix(C<-(1:10),nrow=5, ncol=6)
 m1
-a_m1 <- apply(m1, 2, sum)
+#       [,1] [,2] [,3] [,4] [,5] [,6]
+# [1,]    1    6    1    6    1    6
+# [2,]    2    7    2    7    2    7
+# [3,]    3    8    3    8    3    8
+# [4,]    4    9    4    9    4    9
+# [5,]    5   10    5   10    5   10
+
+######
+# Function on a column
+######
+a_m1 <- apply(m1, 2, sum) # (m1 = matrix, 2 = Margin, sum = Function)
+a_m1       # Margin 1 is rows and margin 2 is columns              
+# [1] 15 40 15 40 15 40
+
+######
+# Function on a row
+######
+a_m1 <- apply(m1, 1, sum) # (m1 = matrix, 2 = Margin, sum = Function)
 a_m1
 
 ######################################
-# List Apply
+# L Apply (Lists)
 #####################################
 #   lapply(X, FUN)
 #   Arguments:
@@ -240,7 +467,7 @@ movies_lower <-lapply(movies, tolower)
 str(movies_lower)
 
 ######################################
-# S Apply
+# S Apply (Vectors)
 #####################################
 # same job as lapply() function but returns a vector.
 #   sapply(X, FUN)
@@ -258,7 +485,7 @@ lmn_cars
 smn_cars
 
 ######################################
-# T Apply
+# T Apply (Factors)
 #####################################
 # tapply() computes a measure (mean, median, min, max, etc..) or a function for each factor variable in a vector.
 
@@ -270,6 +497,9 @@ smn_cars
 
 data(iris)
 tapply(iris$Sepal.Width, iris$Species, median)
+#     setosa versicolor  virginica 
+#        3.4        2.8        3.0 
+
 
 # => https://statsandr.com/blog/descriptive-statistics-in-r/
 # stats summary 
