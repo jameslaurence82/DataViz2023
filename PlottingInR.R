@@ -25,15 +25,47 @@ library(gapminder)
 ###################################
 #       Histograms/Bar Charts
 ###################################
-hist(mtcars$mpg)
+hist(mtcars$mpg) # $ selects the mpg column only
+view(mtcars$mpg) # Views the data for mpg column only
+view(mtcars) # views the entire dataset
+
 ggplot(mpg, aes(class)) + geom_bar()
+
+ggplot(mtcars, aes(mpg)) + 
+  geom_histogram(bins = 2)
+
+ggplot(mtcars, aes(mpg)) + 
+  geom_histogram(bins = 10)
+
 ###################################
-#       Kernel Density Plots
+#       Kernel Density Plots <---- y axis doesn't have meaning???
 ###################################
+
 d <- density(mtcars$mpg) # returns the density data
 plot(d) # plots the results
 
 ggplot(diamonds, aes(carat)) +  geom_density()
+view(diamonds)
+
+# Data:
+# diamonds: This is the dataset used for creating the plot. 
+# The diamonds dataset is a built-in dataset in the ggplot2 
+# package, and it contains information about various diamonds.
+# Mapping Aesthetic:
+# aes(carat): This specifies the mapping aesthetic for the plot. 
+# It tells ggplot to use the "carat" column from the diamonds 
+# dataset as the x-axis variable. In other words, it's specifying 
+# the variable to be plotted.
+# + Operator:
+# In ggplot2, the + operator is used to add layers to the plot. 
+# Each layer represents a different aspect or component of the plot.
+# geom_density() function:
+# geom_density() is a layer added to the plot. It creates a density
+# plot, which is a smoothed representation of the distribution of 
+# the variable specified in the aesthetic mapping (carat in this 
+# case).
+# The density plot provides an estimate of the probability density
+# function of the variable, showing how the values are distributed.
 ###################################
 #       Line Charts
 ###################################
@@ -43,7 +75,10 @@ plot(v,type = "o")
 df <- data.frame(dose=c("D0.5", "D1", "D2"),
                  len=c(4.2, 10, 29.5))
 #ToothGrowth describes the effect of Vitamin C on tooth growth in Guinea pigs.
-ggplot(data=df, aes(x=dose, y=len, group=1)) +  geom_line()+  geom_point()
+ggplot(data=df, aes(x=dose, y=len, group=1)) +
+  geom_line() + # plot the line
+  geom_point() # stacking the points on the
+# ggplots allow the layering on top of each feature
 
 ###################################
 #       Pie Charts
@@ -60,8 +95,10 @@ pie + coord_polar(theta = "y")
 #       Scatter Plots
 ###################################
 #attach(mtcars)
-plot(wt, mpg, main="Scatterplot Example",
-     xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19)
+plot(mtcars$wt, mtcars$mpg, main="Scatterplot Example", # main label
+     xlab="Car Weight " , # X label
+     ylab="Miles Per Gallon ", # y label
+     pch=19) # the plot type 19 is cirlce - 12 is squares
 
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
