@@ -98,7 +98,7 @@ pie + coord_polar(theta = "y")
 plot(mtcars$wt, mtcars$mpg, main="Scatterplot Example", # main label
      xlab="Car Weight " , # X label
      ylab="Miles Per Gallon ", # y label
-     pch=19) # the plot type 19 is cirlce - 12 is squares
+     pch=19) # the plot type 19 is circle - 12 is squares
 
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
@@ -179,6 +179,8 @@ p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))
 p + geom_point() +
   geom_smooth(method = "gam") +
   scale_x_log10(labels = scales::dollar)
+
+?scales
 ###############################################
 #aesthetic mapping 
 ###############################################
@@ -204,6 +206,11 @@ p <- ggplot(data = gapminder,
                           y = lifeExp)) 
 p + geom_point(alpha = 0.3) +
   geom_smooth(color = "orange", se = FALSE, size = 8, method = "lm") +
+  scale_x_log10()
+
+# Transparency of labels or lines, depending which layer comes first
+p + geom_smooth(color = "orange", se = FALSE, size = 8, method = "lm") +
+  geom_point(alpha = 0.3) +
   scale_x_log10()
 ###############################################
 
@@ -231,9 +238,9 @@ p + geom_point() +
 ###############################################
 # legend color and fill
 p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
+            mapping = aes(x = gdpPercap, # splits the aesthetics with mapping
                           y = lifeExp,
-                          color = continent,
+                          color = continent, # aesthetics defines the points by contenant
                           fill = continent))
 p + geom_point() +
   geom_smooth(method = "loess") +
@@ -242,7 +249,7 @@ p + geom_point() +
 #Aesthetics can be mapped per geom
 
 p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
-p + geom_point(mapping = aes(color = continent)) +
+p + geom_point(mapping = aes(color = continent)) + # not aesthetics, so all data points but points changed by continent
   geom_smooth(method = "loess") +
   scale_x_log10()
 ###############################################
@@ -254,6 +261,8 @@ p + geom_point(mapping = aes(color = log(pop))) +
   scale_x_log10() 
 
 ###############################################
+# TO SAVE THE PLOTS THATS CREATED
+##############################################
 # Export image ggsave(filename = "my_figure.png")
 
 
@@ -291,6 +300,7 @@ p + geom_line(aes(group = country)) + facet_wrap(~ continent)
 
 ################################
 # display in 1 row
+# Preattentive Attributes - blue trendline
 p <- ggplot(data = gapminder, mapping = aes(x = year, y = gdpPercap))
 p + geom_line(color="gray70", aes(group = country)) +
   geom_smooth(size = 1.1, method = "loess", se = FALSE) +
